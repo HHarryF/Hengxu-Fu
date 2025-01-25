@@ -1,30 +1,37 @@
 # Hengxu Fu
  
-#include <Servo.h>
-
-int led1Pin = 2;
-int led2Pin = 3;
-int servoPin = 9;
-
-Servo myServo;
+const int sensorPin = 2;
+const int ledPin1 = 3;
+const int ledPin2 = 4;
+const int motorPin1 = 5;
+const int motorPin2 = 6;
 
 void setup() {
-  pinMode(led1Pin, OUTPUT);
-  pinMode(led2Pin, OUTPUT);
-
-  digitalWrite(led1Pin, HIGH);
-  digitalWrite(led2Pin, HIGH);
-
-  myServo.attach(servoPin);
-  myServo.write(0);
+  pinMode(sensorPin, INPUT);
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(motorPin1, OUTPUT);
+  pinMode(motorPin2, OUTPUT);
 }
 
 void loop() {
-  
-  myServo.write(360);
-  delay(10000);
+  int sensorState = digitalRead(sensorPin);
 
- 
-  myServo.write(0);
-  delay(0); 
+  if (sensorState == HIGH) {
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(1000);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(1000);
+
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, HIGH);
+  } else {
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, LOW);
+  }
 }
